@@ -5,54 +5,75 @@ import Navmenu from "./components/Navmenu";
 import ShoppingCart from "./components/ShoppingCart";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
+import { useAppContext } from "./context/Context";
+import LoginPage from "./components/LoginPage";
+import { AuthContextProvider } from "./components/authContext/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
-  const getData = () => {
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      return JSON.parse(savedCart);
-    } else return [];
-  };
-  const [cart, setCart] = useState(getData());
-  const [showToast, setShowToast] = useState(false);
   const [isNavmenuVisible, setNavmenuVisible] = useState(false);
-
-  const addToCart = (product) => {
-    const existingItem = cart.find((item) => item.id === product.id);
-    if (existingItem) {
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 2000);
-    } else {
-      setCart((prevCart) => [...prevCart, product]);
-    }
-  };
-
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+  const { state, dispatch, user, setUser } = useAppContext();
+  const { cartState, isLoading, error, products } = state;
 
   const toggleNavmenu = () => {
     setNavmenuVisible(!isNavmenuVisible);
   };
+
+  const fetchData = async () => {
+    dispatch({ type: "START_FETCH" });
+    try {
+      const res = await fetch("https://fakestoreapi.com/products");
+      const data = await res.json();
+      dispatch({ type: "FETCH_SUCCESSFUL", payload: data });
+    } catch (err) {
+      dispatch({ type: "FETCH_ERROR" });
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <div className="container">
-      <Navbar cartSize={cart.length} toggleNavmenu={toggleNavmenu} />
-      <Navmenu isVisible={isNavmenuVisible} />
-      <div className={`toast_notification ${showToast ? "" : "visible"}`}>
-        <i className="bi bi-exclamation-circle"></i>
-        <span>Item is already in the cart</span>
+    <AuthContextProvider>
+      <div className="container">
+        <Navbar cartSize={cartState.length} toggleNavmenu={toggleNavmenu} />
+        <Navmenu isVisible={isNavmenuVisible} />
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : error ? (
+          <div>Error fetching products.</div>
+        ) : (
+          <>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Products
+                      cartState={cartState}
+                      products={products}
+                      cartDispatch={dispatch}
+                    />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/LoginPage"
+                element={<LoginPage user={user} setUser={setUser} />}
+              />
+              <Route
+                path="/ShoppingCart"
+                element={
+                  <ShoppingCart cartState={cartState} cartDispatch={dispatch} />
+                }
+              />
+              <Route path="/ProductDetails/:id" element={<ProductDetails />} />
+            </Routes>
+          </>
+        )}
       </div>
-      <Routes>
-        <Route path="/" element={<Products addToCart={addToCart} />} />
-        <Route
-          path="/ShoppingCart"
-          element={<ShoppingCart cart={cart} setCart={setCart} />}
-        />
-        <Route path="/ProductDetails/:id" element={<ProductDetails />} />
-      </Routes>
-    </div>
+    </AuthContextProvider>
   );
 };
 

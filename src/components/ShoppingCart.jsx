@@ -1,13 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useAppContext } from "../context/Context.jsx";
 
-const ShoppingCart = ({ cart, setCart }) => {
+const ShoppingCart = ({ cartState, cartDispatch }) => {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const increaseQuantity = (productId) => {
-    const updatedCart = cart.map((item) => {
-      if (item.id === productId) {
-        const newQuantity = (item.quantity || 1) + 1;
+    const updatedCart = cartState.map((item) => {
+      if (item.id === productId && item.quantity) {
+        const newQuantity = item.quantity + 1;
         return {
           ...item,
           quantity: newQuantity,
@@ -15,12 +16,13 @@ const ShoppingCart = ({ cart, setCart }) => {
       }
       return item;
     });
-    setCart(updatedCart);
+
+    cartDispatch({ type: "UPDATE_CART", payload: updatedCart });
   };
 
   const decreaseQuantity = (productId) => {
-    const updatedCart = cart.map((item) => {
-      if (item.id === productId && item.quantity > 1) {
+    const updatedCart = cartState.map((item) => {
+      if (item.id === productId && item.quantity) {
         const newQuantity = item.quantity - 1;
         return {
           ...item,
@@ -29,17 +31,18 @@ const ShoppingCart = ({ cart, setCart }) => {
       }
       return item;
     });
-    setCart(updatedCart);
+
+    cartDispatch({ type: "UPDATE_CART", payload: updatedCart });
   };
 
   const removeItem = (productId) => {
-    const updatedCart = cart.filter((item) => item.id !== productId);
-    setCart(updatedCart);
+    const updatedCart = cartState.filter((item) => item.id !== productId);
+    cartDispatch({ type: "UPDATE_CART", payload: updatedCart });
   };
 
   useEffect(() => {
     const calculateTotalPrice = () => {
-      const total = cart.reduce(
+      const total = cartState.reduce(
         (accumulator, item) => accumulator + item.price * (item.quantity || 1),
         0
       );
@@ -47,7 +50,7 @@ const ShoppingCart = ({ cart, setCart }) => {
     };
 
     calculateTotalPrice();
-  }, [cart]);
+  }, [cartState]);
 
   return (
     <div className="cart_page">
@@ -65,9 +68,9 @@ const ShoppingCart = ({ cart, setCart }) => {
           </div>
         </div>
         <div className="products_list">
-          {cart.length > 0 ? (
+          {cartState.length > 0 ? (
             <div className="product_cont">
-              {cart.map((item) => (
+              {cartState.map((item) => (
                 <ul key={item.id}>
                   <li>
                     <img src={item.image} alt={item.name} />
