@@ -1,9 +1,3 @@
-const getData = () => {
-  const savedCart = localStorage.getItem("cart");
-  if (savedCart) {
-    return JSON.parse(savedCart);
-  } else return [];
-};
 
 const INITIAL_STATE = {
   cartState: localStorage.getItem("cart")

@@ -7,12 +7,11 @@ import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
 import { useAppContext } from "./context/Context";
 import LoginPage from "./components/LoginPage";
-import { AuthContextProvider } from "./components/authContext/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
   const [isNavmenuVisible, setNavmenuVisible] = useState(false);
-  const { state, dispatch, user, setUser } = useAppContext();
+  const { state, dispatch } = useAppContext();
   const { cartState, isLoading, error, products } = state;
 
   const toggleNavmenu = () => {
@@ -35,45 +34,40 @@ const App = () => {
   }, []);
 
   return (
-    <AuthContextProvider>
-      <div className="container">
-        <Navbar cartSize={cartState.length} toggleNavmenu={toggleNavmenu} />
-        <Navmenu isVisible={isNavmenuVisible} />
-        {isLoading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error fetching products.</div>
-        ) : (
-          <>
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Products
-                      cartState={cartState}
-                      products={products}
-                      cartDispatch={dispatch}
-                    />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/LoginPage"
-                element={<LoginPage user={user} setUser={setUser} />}
-              />
-              <Route
-                path="/ShoppingCart"
-                element={
-                  <ShoppingCart cartState={cartState} cartDispatch={dispatch} />
-                }
-              />
-              <Route path="/ProductDetails/:id" element={<ProductDetails />} />
-            </Routes>
-          </>
-        )}
-      </div>
-    </AuthContextProvider>
+    <div className="container">
+      <Navbar cartSize={cartState.length} toggleNavmenu={toggleNavmenu} />
+      <Navmenu isVisible={isNavmenuVisible} />
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>Error fetching products.</div>
+      ) : (
+        <>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Products
+                    cartState={cartState}
+                    products={products}
+                    cartDispatch={dispatch}
+                  />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/LoginPage" element={<LoginPage />} />
+            <Route
+              path="/ShoppingCart"
+              element={
+                <ShoppingCart cartState={cartState} cartDispatch={dispatch} />
+              }
+            />
+            <Route path="/ProductDetails/:id" element={<ProductDetails />} />
+          </Routes>
+        </>
+      )}
+    </div>
   );
 };
 

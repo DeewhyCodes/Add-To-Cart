@@ -15,26 +15,15 @@ export const AuthContextProvider = ({ children }) => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
-    console.log("clicked");
-    const newUser = { email: email, password: password };
-    setUser(true);
-  };
-
-  const handleLogout = () => {
-    setUser(false);
-  };
-
   return (
     <AuthContext.Provider
       value={{
         email,
         password,
         user,
-        handleLogin,
+        setUser,
         handleEmailChange,
         handlePasswordChange,
-        handleLogout,
       }}
     >
       {children}

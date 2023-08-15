@@ -7,7 +7,11 @@ const Products = ({ products, cartState, cartDispatch }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [addedProduct, setAddedProduct] = useState(null);
-  const { handleLogout } = useAuthContext();
+  const { setUser } = useAuthContext();
+
+  const handleLogout = () => {
+    setUser(false);
+  };
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);

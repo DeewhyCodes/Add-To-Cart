@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { useAuthContext } from "./authContext/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const {
-    email,
-    password,
-    handleEmailChange,
-    handleLogin,
-    handlePasswordChange,
-  } = useAuthContext();
+  const { email, password, handleEmailChange, handlePasswordChange, setUser } =
+    useAuthContext();
+
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    console.log("clicked");
+    setUser(true);
+    navigate("/");
+  };
 
   return (
     <div className="login-container">
