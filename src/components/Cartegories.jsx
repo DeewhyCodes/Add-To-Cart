@@ -1,17 +1,16 @@
 import React from "react";
+import { useSharedContext } from "../context/SharedAppContex";
 
-const Cartegories = ({ onCategoryFilter }) => {
+const Cartegories = () => {
+  const { handleCategoryFilter } = useSharedContext();
   const handleCategory = (e) => {
     const selectedCategory = e.target.value;
-    if (selectedCategory === "all") {
-      onCategoryFilter(null);
-    } else {
-      onCategoryFilter(selectedCategory);
-    }
+    handleCategoryFilter(selectedCategory);
   };
 
   return (
     <div className="category">
+      <h3>Categories</h3>
       <ul>
         <li>
           <label>

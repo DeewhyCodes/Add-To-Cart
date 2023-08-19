@@ -1,4 +1,3 @@
-
 const INITIAL_STATE = {
   cartState: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
@@ -6,6 +5,7 @@ const INITIAL_STATE = {
   products: [],
   isLoading: false,
   error: false,
+  selectedCategory: null,
 };
 
 const cartReducer = (state, action) => {
@@ -52,6 +52,11 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         cartState: action.payload,
+      };
+    case "SET_SELECTED_CATEGORY":
+      return {
+        ...state,
+        selectedCategory: action.payload,
       };
 
     default:

@@ -6,8 +6,8 @@ import ShoppingCart from "./components/ShoppingCart";
 import Products from "./components/Products";
 import ProductDetails from "./components/ProductDetails";
 import { useAppContext } from "./context/Context";
-import LoginPage from "./components/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AuthPage from "./components/auth/AuthPage";
 
 const App = () => {
   const [isNavmenuVisible, setNavmenuVisible] = useState(false);
@@ -15,7 +15,15 @@ const App = () => {
   const { cartState, isLoading, error, products } = state;
 
   const toggleNavmenu = () => {
-    setNavmenuVisible(!isNavmenuVisible);
+    setNavmenuVisible((prevVisible) => !prevVisible);
+  };
+
+  const closeNavmenu = () => {
+    setNavmenuVisible(false);
+  };
+
+  const closeLinkMenu = () => {
+    setNavmenuVisible(true);
   };
 
   const fetchData = async () => {
@@ -35,8 +43,14 @@ const App = () => {
 
   return (
     <div className="container">
+      {isNavmenuVisible && <div className="overlay" onClick={closeNavmenu} />}
       <Navbar cartSize={cartState.length} toggleNavmenu={toggleNavmenu} />
-      <Navmenu isVisible={isNavmenuVisible} />
+      <Navmenu
+        isVisible={isNavmenuVisible}
+        closeNavmenu={closeNavmenu}
+        toggleNavmenu={toggleNavmenu}
+        closeLinkMenu={closeLinkMenu}
+      />
       {isLoading ? (
         <div>Loading...</div>
       ) : error ? (
@@ -56,11 +70,13 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="/LoginPage" element={<LoginPage />} />
+            <Route path="/auth/AuthPage" element={<AuthPage />} />
             <Route
               path="/ShoppingCart"
               element={
-                <ShoppingCart cartState={cartState} cartDispatch={dispatch} />
+                <ProtectedRoute>
+                  <ShoppingCart cartState={cartState} cartDispatch={dispatch} />
+                </ProtectedRoute>
               }
             />
             <Route path="/ProductDetails/:id" element={<ProductDetails />} />
