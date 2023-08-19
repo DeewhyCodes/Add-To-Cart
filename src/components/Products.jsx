@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Cartegories from "./Cartegories";
-import { useAuthContext } from "./authContext/AuthContext";
 
 const Products = ({ products, cartState, cartDispatch }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [addedProduct, setAddedProduct] = useState(null);
-  const { setUser } = useAuthContext();
-
-  const handleLogout = () => {
-    setUser(false);
-  };
 
   const handleCategoryFilter = (category) => {
     setSelectedCategory(category);

@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthContext } from "./authContext/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const { email, password, handleEmailChange, handlePasswordChange, setUser } =
-    useAuthContext();
+  const { handleLogin } = useAuthContext();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
 
-  const handleLogin = () => {
-    console.log("clicked");
-    setUser(true);
-    navigate("/");
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
   return (

@@ -4,7 +4,6 @@ import { useAuthContext } from "./authContext/AuthContext";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuthContext();
-  console.log("User in protected route:", user);
 
   if (!user) {
     return <Navigate to="/LoginPage" />;

@@ -1,29 +1,28 @@
 import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    setUser(true);
+    navigate("/");
   };
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+  const handleLogout = () => {
+    setUser(false);
   };
 
   return (
     <AuthContext.Provider
       value={{
-        email,
-        password,
         user,
-        setUser,
-        handleEmailChange,
-        handlePasswordChange,
+        handleLogin,
+        handleLogout,
       }}
     >
       {children}
