@@ -371,6 +371,9 @@ button:disabled {
     min-height: 30px;
     min-width: 30px;
     flex: 1;
+    justify-self: flex-start;
+    justify-content: center;
+    align-items: center;
   }
   .product_cont ul li:not(:nth-child(1)) {
     margin: auto;
