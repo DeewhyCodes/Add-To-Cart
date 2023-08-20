@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Cart from "./Cart";
+import { useSharedContext } from "../context/SharedAppContex";
+import AuthDetails from "./auth/AuthDetails";
 
-const Navbar = ({ cartSize, toggleNavmenu }) => {
+const Navbar = ({ cartSize }) => {
+  const { toggleUserMenu, toggleNavmenu } = useSharedContext();
   return (
     <div className="nav">
       <div className="nav_left">
@@ -25,9 +28,10 @@ const Navbar = ({ cartSize, toggleNavmenu }) => {
           <p>Contact</p>
         </Link>
       </div>
+      <AuthDetails />
       <div className="nav_right">
         <Cart cartSize={cartSize} />
-        <i className="bi bi-person-circle"></i>
+        <i className="bi bi-person-circle" onClick={toggleUserMenu}></i>
       </div>
     </div>
   );

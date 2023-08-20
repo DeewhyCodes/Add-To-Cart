@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import AuthDetails from "./auth/AuthDetails";
 import { useSharedContext } from "../context/SharedAppContex";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -56,7 +55,6 @@ const Products = ({ cartState, cartDispatch }) => {
           </div>
         ))}
       </div>
-      <AuthDetails />
     </div>
   );
 };

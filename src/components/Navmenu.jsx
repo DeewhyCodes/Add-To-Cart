@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cartegories from "./Cartegories";
+import { useSharedContext } from "../context/SharedAppContex";
 
-const Navmenu = ({ isVisible, toggleNavmenu, closeNavmenu, closeLinkMenu }) => {
+const Navmenu = ({ isVisible }) => {
+  const { toggleNavmenu, closeNavmenu, closeLinkMenu, isSmallScreen } =
+    useSharedContext();
+
   useEffect(() => {
     const handleOutsideClick = (event) => {
       if (isVisible && !event.target.closest(".nav_menu")) {
@@ -10,7 +14,7 @@ const Navmenu = ({ isVisible, toggleNavmenu, closeNavmenu, closeLinkMenu }) => {
       }
     };
 
-    if (isVisible) {
+    if (isVisible && isSmallScreen) {
       document.body.addEventListener("click", handleOutsideClick);
       document.body.style.overflow = "hidden";
     } else {
@@ -29,7 +33,7 @@ const Navmenu = ({ isVisible, toggleNavmenu, closeNavmenu, closeLinkMenu }) => {
   };
 
   return (
-    <div className={`nav_menu ${isVisible ? "visible" : ""}`}>
+    <div className={`nav_menu ${isVisible && isSmallScreen ? "visible" : ""}`}>
       <Link to="" onClick={handleLinkClick}>
         <i className="bi bi-house-fill"></i>
         <p>Home</p>

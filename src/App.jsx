@@ -8,23 +8,18 @@ import ProductDetails from "./components/ProductDetails";
 import { useAppContext } from "./context/Context";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthPage from "./components/auth/AuthPage";
+import { useSharedContext } from "./context/SharedAppContex";
 
 const App = () => {
-  const [isNavmenuVisible, setNavmenuVisible] = useState(false);
   const { state, dispatch } = useAppContext();
   const { cartState, isLoading, error, products } = state;
-
-  const toggleNavmenu = () => {
-    setNavmenuVisible((prevVisible) => !prevVisible);
-  };
-
-  const closeNavmenu = () => {
-    setNavmenuVisible(false);
-  };
-
-  const closeLinkMenu = () => {
-    setNavmenuVisible(true);
-  };
+  const {
+    isNavmenuVisible,
+    closeNavmenu,
+    isUserMenuVisible,
+    closeUserMenu,
+    isSmallScreen,
+  } = useSharedContext();
 
   const fetchData = async () => {
     dispatch({ type: "START_FETCH" });
@@ -43,14 +38,14 @@ const App = () => {
 
   return (
     <div className="container">
-      {isNavmenuVisible && <div className="overlay" onClick={closeNavmenu} />}
-      <Navbar cartSize={cartState.length} toggleNavmenu={toggleNavmenu} />
-      <Navmenu
-        isVisible={isNavmenuVisible}
-        closeNavmenu={closeNavmenu}
-        toggleNavmenu={toggleNavmenu}
-        closeLinkMenu={closeLinkMenu}
-      />
+      {isNavmenuVisible && isSmallScreen && (
+        <div className="overlay" onClick={closeNavmenu} />
+      )}
+      {isUserMenuVisible && (
+        <div className="user_overlay" onClick={closeUserMenu} />
+      )}
+      <Navbar cartSize={cartState.length} />
+      <Navmenu isVisible={isNavmenuVisible} />
       {isLoading ? (
         <div>Loading...</div>
       ) : error ? (

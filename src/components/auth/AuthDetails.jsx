@@ -1,9 +1,11 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { auth } from "../../firebase";
+import { useSharedContext } from "../../context/SharedAppContex";
 
 const AuthDetails = () => {
   const [authUser, setAuthUser] = useState(null);
+  const { isUserMenuVisible } = useSharedContext();
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
@@ -22,9 +24,7 @@ const AuthDetails = () => {
   const userSignOut = () => {
     setTimeout(() => {
       signOut(auth)
-        .then(() => {
-          console.log("Sign out successful");
-        })
+        .then(() => {})
         .catch((error) => {
           console.log("Error signing out:", error);
         });
@@ -32,12 +32,12 @@ const AuthDetails = () => {
   };
 
   return (
-    <div>
+    <div className={`auth_user ${isUserMenuVisible ? "show" : ""}`}>
       {authUser ? (
-        <>
-          <p>{`Signed In as ${authUser.email}`}</p>
-          <button onClick={userSignOut}>Sign Out</button>
-        </>
+        <div>
+          <p>{`Signed In as: ${authUser.email}`}</p>
+          <input type="button" value="Sign Out" onClick={userSignOut} />
+        </div>
       ) : (
         <p>Signed Out</p>
       )}
