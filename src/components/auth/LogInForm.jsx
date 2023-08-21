@@ -1,14 +1,13 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const LogInForm = ({ toggleForm, navigate }) => {
+const LogInForm = ({ toggleForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const Login = (e) => {
     e.preventDefault();
@@ -21,11 +20,10 @@ const LogInForm = ({ toggleForm, navigate }) => {
           navigate("/");
           setEmail("");
           setPassword("");
-          localStorage.setItem("userId", userCredential.user.uid);
         }
       })
       .catch((error) => {
-        toast.error("Error logging in", {});
+        toast.error("Error logging in", { error });
         console.log("Error logging in:", error);
       });
   };
