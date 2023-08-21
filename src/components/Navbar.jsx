@@ -8,6 +8,8 @@ import { ToastContainer } from "react-toastify";
 const Navbar = ({ cartSize }) => {
   const { toggleUserMenu, toggleNavmenu, isUserMenuVisible, authUser } =
     useSharedContext();
+  const displayMobileNav = location.pathname !== "/auth/AuthPage";
+
   return (
     <div className="nav">
       <div className="nav_left">

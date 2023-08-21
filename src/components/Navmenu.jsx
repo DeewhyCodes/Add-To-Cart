@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Cartegories from "./Cartegories";
 import { useSharedContext } from "../context/SharedAppContex";
 
 const Navmenu = ({ isVisible }) => {
   const { toggleNavmenu, closeNavmenu, closeLinkMenu, isSmallScreen } =
     useSharedContext();
+  const location = useLocation();
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -32,6 +33,8 @@ const Navmenu = ({ isVisible }) => {
     closeNavmenu();
   };
 
+  const displayCategories = location.pathname == "/";
+
   return (
     <div className={`nav_menu ${isVisible && isSmallScreen ? "visible" : ""}`}>
       <Link to="" onClick={handleLinkClick}>
@@ -46,7 +49,7 @@ const Navmenu = ({ isVisible }) => {
         <i className="bi bi-person-lines-fill"></i>
         <p>Contact</p>
       </Link>
-      <Cartegories />
+      {displayCategories && <Cartegories />}
     </div>
   );
 };
