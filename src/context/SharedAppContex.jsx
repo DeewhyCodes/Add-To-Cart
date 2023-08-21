@@ -1,5 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAppContext } from "./Context";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 export const SharedContext = createContext();
 
@@ -10,6 +13,22 @@ export const SharedContextProvider = ({ children }) => {
   const [isUserMenuVisible, setUserMenuVisible] = useState(false);
   const [isNavmenuVisible, setNavmenuVisible] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 767);
+  const [authUser, setAuthUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 767);
@@ -65,6 +84,7 @@ export const SharedContextProvider = ({ children }) => {
         isSmallScreen,
         isUserMenuVisible,
         isNavmenuVisible,
+        authUser,
       }}
     >
       {children}

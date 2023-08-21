@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Navmenu from "./components/Navmenu";
@@ -9,6 +9,7 @@ import { useAppContext } from "./context/Context";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AuthPage from "./components/auth/AuthPage";
 import { useSharedContext } from "./context/SharedAppContex";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const { state, dispatch } = useAppContext();
@@ -44,6 +45,7 @@ const App = () => {
       {isUserMenuVisible && (
         <div className="user_overlay" onClick={closeUserMenu} />
       )}
+      <ToastContainer position="top-right" autoClose={2000} />
       <Navbar cartSize={cartState.length} />
       <Navmenu isVisible={isNavmenuVisible} />
       {isLoading ? (

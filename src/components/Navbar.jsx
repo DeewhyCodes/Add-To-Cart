@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import { useSharedContext } from "../context/SharedAppContex";
 import AuthDetails from "./auth/AuthDetails";
+import { ToastContainer } from "react-toastify";
 
 const Navbar = ({ cartSize }) => {
-  const { toggleUserMenu, toggleNavmenu } = useSharedContext();
+  const { toggleUserMenu, toggleNavmenu, isUserMenuVisible, authUser } =
+    useSharedContext();
   return (
     <div className="nav">
       <div className="nav_left">
         <i className="bi bi-menu-button-wide-fill" onClick={toggleNavmenu}></i>
         <div className="logo">
-          <h2>Shopping Cart</h2>
+          <h2>Shopping</h2>
         </div>
       </div>
       <div className="nav_middle">
@@ -31,7 +33,9 @@ const Navbar = ({ cartSize }) => {
       <AuthDetails />
       <div className="nav_right">
         <Cart cartSize={cartSize} />
-        <i className="bi bi-person-circle" onClick={toggleUserMenu}></i>
+        {authUser && (
+          <i className="bi bi-person-circle" onClick={toggleUserMenu}></i>
+        )}
       </div>
     </div>
   );

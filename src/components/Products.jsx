@@ -21,7 +21,6 @@ const Products = ({ cartState, cartDispatch }) => {
 
   return (
     <div className="products_container">
-      <ToastContainer position="top-right" autoClose={2000} />
       <div className="products_grid">
         {filteredProducts.map((product) => (
           <div className="products" key={product.id}>

@@ -4,27 +4,14 @@ import { auth } from "../../firebase";
 import { useSharedContext } from "../../context/SharedAppContex";
 
 const AuthDetails = () => {
-  const [authUser, setAuthUser] = useState(null);
-  const { isUserMenuVisible } = useSharedContext();
-
-  useEffect(() => {
-    const listen = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setAuthUser(user);
-      } else {
-        setAuthUser(null);
-      }
-    });
-
-    return () => {
-      listen();
-    };
-  }, []);
+  const { isUserMenuVisible, authUser, closeUserMenu } = useSharedContext();
 
   const userSignOut = () => {
     setTimeout(() => {
       signOut(auth)
-        .then(() => {})
+        .then(() => {
+          closeUserMenu();
+        })
         .catch((error) => {
           console.log("Error signing out:", error);
         });

@@ -1,14 +1,23 @@
-import React from "react";
-import LoginPage from "./LogInForm";
-import SignUpPage from "./SignUpForm";
-import AuthDetails from "./AuthDetails";
+import React, { useState } from "react";
+import LogInForm from "./LogInForm";
+import SignUpForm from "./SignUpForm";
+import { useSharedContext } from "../../context/SharedAppContex";
 
 const AuthPage = () => {
+  const { navigate } = useSharedContext();
+  const [showLoginForm, setShowLoginForm] = useState(true);
+
+  const toggleForm = () => {
+    setShowLoginForm((prevShowLoginForm) => !prevShowLoginForm);
+  };
+
   return (
     <div className="auth-page">
-      <LoginPage />
-      <SignUpPage />
-      <AuthDetails />
+      {showLoginForm ? (
+        <LogInForm toggleForm={toggleForm} navigate={navigate} />
+      ) : (
+        <SignUpForm toggleForm={toggleForm} navigate={navigate} />
+      )}
     </div>
   );
 };
