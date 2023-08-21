@@ -37,15 +37,15 @@ const Navmenu = ({ isVisible }) => {
 
   return (
     <div className={`nav_menu ${isVisible && isSmallScreen ? "visible" : ""}`}>
-      <Link to="" onClick={handleLinkClick}>
+      <Link to="/" onClick={handleLinkClick}>
         <i className="bi bi-house-fill"></i>
         <p>Home</p>
       </Link>
-      <Link to="/" onClick={handleLinkClick}>
+      <Link to="/Products" onClick={handleLinkClick}>
         <i className="bi bi-shop"></i>
         <p>Shop</p>
       </Link>
-      <Link to="/contact" onClick={handleLinkClick}>
+      <Link to="/Contact" onClick={handleLinkClick}>
         <i className="bi bi-person-lines-fill"></i>
         <p>Contact</p>
       </Link>

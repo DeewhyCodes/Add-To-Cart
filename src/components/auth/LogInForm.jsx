@@ -17,7 +17,7 @@ const LogInForm = ({ toggleForm }) => {
         if (userCredential.user) {
           toast.success("Logged in successfully", {});
           console.log("Logged in successfully:", userCredential);
-          navigate("/");
+          navigate("/Products");
           setEmail("");
           setPassword("");
         }

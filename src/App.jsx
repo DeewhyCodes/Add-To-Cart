@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Navmenu from "./components/Navmenu";
 import ShoppingCart from "./components/ShoppingCart";
@@ -10,6 +10,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AuthPage from "./components/auth/AuthPage";
 import { useSharedContext } from "./context/SharedAppContex";
 import { ToastContainer } from "react-toastify";
+import Home from "./components/Home";
+import Contact from "./components/Contact";
 
 const App = () => {
   const { state, dispatch } = useAppContext();
@@ -21,6 +23,8 @@ const App = () => {
     closeUserMenu,
     isSmallScreen,
   } = useSharedContext();
+
+  const location = useLocation();
 
   const fetchData = async () => {
     dispatch({ type: "START_FETCH" });
@@ -37,6 +41,8 @@ const App = () => {
     fetchData();
   }, []);
 
+  location.pathname == "/" && closeNavmenu;
+
   return (
     <div className="container">
       {isNavmenuVisible && isSmallScreen && (
@@ -46,7 +52,7 @@ const App = () => {
         <div className="user_overlay" onClick={closeUserMenu} />
       )}
       <ToastContainer position="top-right" autoClose={2000} />
-      <Navbar cartSize={cartState.length} />
+      {location.pathname !== "/" && <Navbar cartSize={cartState.length} />}
       <Navmenu isVisible={isNavmenuVisible} />
       {isLoading ? (
         <div>Loading...</div>
@@ -55,8 +61,9 @@ const App = () => {
       ) : (
         <>
           <Routes>
+            <Route path="/" element={<Home products={products} />} />
             <Route
-              path="/"
+              path="/Products"
               element={
                 <ProtectedRoute>
                   <Products
@@ -67,6 +74,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="Contact" element={<Contact />} />
             <Route path="/auth/AuthPage" element={<AuthPage />} />
             <Route
               path="/ShoppingCart"
