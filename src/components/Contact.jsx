@@ -2,6 +2,7 @@ import React from "react";
 import "./Contact.css";
 
 const Contact = () => {
+  const whatsappNumber = "+2349030461076";
   return (
     <div className="contact-page">
       <h2>Contact Us</h2>
@@ -26,6 +27,19 @@ const Contact = () => {
           Submit
         </button>
       </form>
+      <br />
+      <h3>OR</h3>
+      <br />
+      <h3>
+        <a
+          href={`https://api.whatsapp.com/send?phone=${whatsappNumber}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Say hello
+          <i className="bi bi-whatsapp"></i>
+        </a>
+      </h3>
     </div>
   );
 };

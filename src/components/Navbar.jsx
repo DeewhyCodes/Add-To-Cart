@@ -7,13 +7,14 @@ import AuthDetails from "./auth/AuthDetails";
 const Navbar = ({ cartSize }) => {
   const { toggleUserMenu, toggleNavmenu, authUser, isSmallScreen } =
     useSharedContext();
-  const isShoppingCartPage =
-    location.pathname === "/ShoppingCart" && window.innerWidth >= 767;
+  const isShoppingCartPage = location.pathname === "/ShoppingCart";
+  const isContactPage = location.pathname === "/Contact";
 
   return (
     <div className="nav">
       <div className="nav_left">
-        {!isSmallScreen && isShoppingCartPage ? (
+        {(!isSmallScreen && isShoppingCartPage) ||
+        (!isSmallScreen && isContactPage) ? (
           ""
         ) : (
           <i

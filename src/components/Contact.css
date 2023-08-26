@@ -1,6 +1,6 @@
 .contact-page {
   text-align: center;
-  padding: 50px 0;
+  padding: 50px 15px;
   color: #334155;
 }
 
@@ -25,8 +25,23 @@ label {
   margin-bottom: 5px;
 }
 
-.landing-page input,
-.landing-page textarea {
+.contact-page p {
+  margin-bottom: 8px;
+}
+
+.contact-page h3 a {
+  color: #334155;
+  text-decoration: none;
+}
+
+.contact-page h3 a i {
+  font-size: 18px;
+  margin-left: 5px;
+  color: #25d366;
+}
+
+.contact-page input,
+.contact-page textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
@@ -50,4 +65,10 @@ textarea {
 
 .submit-button:hover {
   background-color: #293847;
+}
+
+@media (max-width: 500px) {
+  .contact-form {
+    max-width: 300px;
+  }
 }
