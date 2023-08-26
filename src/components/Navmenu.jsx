@@ -57,7 +57,7 @@ const Navmenu = ({ isVisible }) => {
       ) : (
         isProductsPage && <Cartegories />
       )}
-      {isSmallScreen && (
+      {isSmallScreen && !isProductsPage && (
         <>
           <Link to="/" onClick={handleLinkClick}>
             <i className="bi bi-house-fill"></i>
