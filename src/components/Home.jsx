@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 const Home = ({ products }) => {
@@ -61,12 +61,14 @@ const Home = ({ products }) => {
                 <p>${product.price}</p>
               </div>
             ))}
-            <button className="prev-button" onClick={prevSlide}>
-              Previous
-            </button>
-            <button className="next-button" onClick={nextSlide}>
-              Next
-            </button>
+            <i
+              className="bi bi-chevron-left prev-button"
+              onClick={prevSlide}
+            ></i>
+            <i
+              className="bi bi-chevron-right next-button"
+              onClick={nextSlide}
+            ></i>
           </div>
         </div>
       </section>

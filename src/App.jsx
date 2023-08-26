@@ -45,9 +45,7 @@ const App = () => {
 
   return (
     <div className="container">
-      {isNavmenuVisible && isSmallScreen && (
-        <div className="overlay" onClick={closeNavmenu} />
-      )}
+      {isNavmenuVisible && <div className="overlay" onClick={closeNavmenu} />}
       {isUserMenuVisible && (
         <div className="user_overlay" onClick={closeUserMenu} />
       )}

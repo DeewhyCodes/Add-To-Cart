@@ -1,5 +1,5 @@
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
+import React from "react";
 import { auth } from "../../firebase";
 import { useSharedContext } from "../../context/SharedAppContex";
 

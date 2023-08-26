@@ -9,6 +9,12 @@ const SignUpForm = ({ toggleForm }) => {
 
   const signUp = (e) => {
     e.preventDefault();
+
+    if (email.trim() === "" || password.trim() === "") {
+      toast.error("Please enter both email and password", {});
+      return;
+    }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         toast.success("Signed up successfully", {});

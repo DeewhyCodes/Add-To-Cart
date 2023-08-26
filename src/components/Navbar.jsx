@@ -3,15 +3,25 @@ import { Link } from "react-router-dom";
 import Cart from "./Cart";
 import { useSharedContext } from "../context/SharedAppContex";
 import AuthDetails from "./auth/AuthDetails";
-import { ToastContainer } from "react-toastify";
 
 const Navbar = ({ cartSize }) => {
-  const { toggleUserMenu, toggleNavmenu, authUser } = useSharedContext();
+  const { toggleUserMenu, toggleNavmenu, authUser, isSmallScreen } =
+    useSharedContext();
+  const isShoppingCartPage =
+    location.pathname === "/ShoppingCart" && window.innerWidth >= 767;
 
   return (
     <div className="nav">
       <div className="nav_left">
-        <i className="bi bi-menu-button-wide-fill" onClick={toggleNavmenu}></i>
+        {!isSmallScreen && isShoppingCartPage ? (
+          ""
+        ) : (
+          <i
+            className="bi bi-menu-button-wide-fill"
+            onClick={toggleNavmenu}
+          ></i>
+        )}
+
         <Link to="/" className="logo">
           <div>
             <h2>Shopping Cart</h2>

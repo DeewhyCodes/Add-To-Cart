@@ -6,6 +6,7 @@ import { useSharedContext } from "../context/SharedAppContex";
 const Navmenu = ({ isVisible }) => {
   const { toggleNavmenu, closeNavmenu, closeLinkMenu, isSmallScreen } =
     useSharedContext();
+
   const location = useLocation();
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const Navmenu = ({ isVisible }) => {
       }
     };
 
-    if (isVisible && isSmallScreen) {
+    if (isVisible) {
       document.body.addEventListener("click", handleOutsideClick);
       document.body.style.overflow = "hidden";
     } else {
@@ -33,23 +34,45 @@ const Navmenu = ({ isVisible }) => {
     closeNavmenu();
   };
 
-  const displayCategories = location.pathname == "/";
+  const isProductsPage = location.pathname == "/Products";
 
   return (
-    <div className={`nav_menu ${isVisible && isSmallScreen ? "visible" : ""}`}>
-      <Link to="/" onClick={handleLinkClick}>
-        <i className="bi bi-house-fill"></i>
-        <p>Home</p>
-      </Link>
-      <Link to="/Products" onClick={handleLinkClick}>
-        <i className="bi bi-shop"></i>
-        <p>Shop</p>
-      </Link>
-      <Link to="/Contact" onClick={handleLinkClick}>
-        <i className="bi bi-person-lines-fill"></i>
-        <p>Contact</p>
-      </Link>
-      {displayCategories && <Cartegories />}
+    <div className={`nav_menu ${isVisible ? "visible" : ""}`}>
+      {isSmallScreen && isProductsPage ? (
+        <>
+          <Link to="/" onClick={handleLinkClick}>
+            <i className="bi bi-house-fill"></i>
+            <p>Home</p>
+          </Link>
+          <Link to="/Products" onClick={handleLinkClick}>
+            <i className="bi bi-shop"></i>
+            <p>Shop</p>
+          </Link>
+          <Link to="/Contact" onClick={handleLinkClick}>
+            <i className="bi bi-person-lines-fill"></i>
+            <p>Contact</p>
+          </Link>
+          <Cartegories />
+        </>
+      ) : (
+        isProductsPage && <Cartegories />
+      )}
+      {isSmallScreen && (
+        <>
+          <Link to="/" onClick={handleLinkClick}>
+            <i className="bi bi-house-fill"></i>
+            <p>Home</p>
+          </Link>
+          <Link to="/Products" onClick={handleLinkClick}>
+            <i className="bi bi-shop"></i>
+            <p>Shop</p>
+          </Link>
+          <Link to="/Contact" onClick={handleLinkClick}>
+            <i className="bi bi-person-lines-fill"></i>
+            <p>Contact</p>
+          </Link>
+        </>
+      )}
     </div>
   );
 };

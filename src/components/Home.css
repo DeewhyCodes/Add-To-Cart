@@ -1,5 +1,5 @@
 .landing-page {
-  font-family: Arial, sans-serif;
+  font-family: Kumbh Sans, sans-serif !important;
 }
 
 .hero {
@@ -107,7 +107,7 @@
   }
 }
 
-.popular-products button {
+.popular-products .bi {
   position: absolute;
   z-index: 999;
   word-wrap: wrap;
@@ -139,6 +139,7 @@
 .product-card {
   flex: 0 0 100%;
   padding: 20px;
+  border-radius: 5px;
   max-width: 100%;
   background-color: #fff;
   border: 1px solid #ddd;

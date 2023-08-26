@@ -11,6 +11,12 @@ const LogInForm = ({ toggleForm }) => {
 
   const Login = (e) => {
     e.preventDefault();
+
+    if (email.trim() === "" || password.trim() === "") {
+      toast.error("Please enter both email and password", {});
+      return;
+    }
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
@@ -68,6 +74,9 @@ const LogInForm = ({ toggleForm }) => {
           Sign Up
         </button>
       </p>
+      <h3>Test account</h3>
+      <p>Email: simeonvictordayo@yahoo.com</p>
+      <p>Password: deewhy001</p>
     </div>
   );
 };
