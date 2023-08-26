@@ -433,7 +433,7 @@ button:disabled {
   position: absolute;
   flex-direction: column;
   font-weight: 600;
-  gap: 50px;
+  /* gap: 50px; */
   min-height: 100vh;
   color: rgb(148 163 184);
   background-color: rgb(226 232 240);
