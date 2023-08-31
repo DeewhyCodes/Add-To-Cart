@@ -25,7 +25,7 @@ const Navbar = ({ cartSize }) => {
 
         <Link to="/" className="logo">
           <div>
-            <h2>Shopping Cart</h2>
+            <h2>Awesome Shop</h2>
           </div>
         </Link>
       </div>
