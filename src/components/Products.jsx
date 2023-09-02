@@ -39,7 +39,7 @@ const Products = ({ cartState, cartDispatch }) => {
               {cartState.some((item) => item.id === product.id) ? (
                 <button className="add_to_cart" disabled={true}>
                   <i className="bi bi-cart3"></i>
-                  <span>Already in Cart</span>
+                  <span>In Cart</span>
                 </button>
               ) : (
                 <button

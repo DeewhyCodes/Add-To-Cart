@@ -27,6 +27,7 @@ export const SharedContextProvider = ({ children }) => {
       unsubscribe();
     };
   }, []);
+  
 
   useEffect(() => {
     const handleResize = () => {

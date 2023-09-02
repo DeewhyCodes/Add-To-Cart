@@ -79,8 +79,9 @@
 
 .nav_middle {
   display: flex;
+  flex: 1;
   visibility: visible;
-  gap: 15px;
+  gap: 100px;
   align-items: center;
   justify-content: center;
 }
@@ -254,6 +255,24 @@
   margin: auto;
 }
 
+.cart_content .pay-now {
+  margin: 20px auto;
+  text-decoration: none;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 5px;
+  display: block;
+  cursor: pointer;
+  background-color: rgb(51 65 85);
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cart_content .pay-now:hover {
+  color: #fff;
+  opacity: 0.8;
+}
+
 .cart_empty {
   line-height: 1.5rem;
   font-size: 22px;
@@ -298,14 +317,10 @@ button:disabled {
 
 .product_total {
   position: sticky;
-  overflow-y: scroll;
-  bottom: 0;
   width: 100%;
   background-color: #fff;
   border: 1px solid #e5e7eb;
   padding: 2rem;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
   text-align: right;
 }
 

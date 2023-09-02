@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ShoppingCart = ({ cartState, cartDispatch }) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -99,6 +100,9 @@ const ShoppingCart = ({ cartState, cartDispatch }) => {
                 </ul>
               ))}
               <h3 className="product_total">Total ${totalPrice.toFixed(2)}</h3>
+              <Link to="/PaymentPage" className="pay-now">
+                Pay now
+              </Link>
             </div>
           ) : (
             <h1 className="cart_empty">Your cart is empty</h1>

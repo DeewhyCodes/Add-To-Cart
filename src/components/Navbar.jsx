@@ -9,12 +9,14 @@ const Navbar = ({ cartSize }) => {
     useSharedContext();
   const isShoppingCartPage = location.pathname === "/ShoppingCart";
   const isContactPage = location.pathname === "/Contact";
+  const isAuthPage = location.pathname === "/auth/AuthPage";
 
   return (
     <div className="nav">
       <div className="nav_left">
         {(!isSmallScreen && isShoppingCartPage) ||
-        (!isSmallScreen && isContactPage) ? (
+        (!isSmallScreen && isContactPage) ||
+        (!isSmallScreen && isAuthPage) ? (
           ""
         ) : (
           <i

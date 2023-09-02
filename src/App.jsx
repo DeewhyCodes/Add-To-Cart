@@ -12,6 +12,7 @@ import { useSharedContext } from "./context/SharedAppContex";
 import { ToastContainer } from "react-toastify";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
+import PaymentPage from "./components/PaymentPage";
 
 const App = () => {
   const { state, dispatch } = useAppContext();
@@ -82,6 +83,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route path="/PaymentPage" element={<PaymentPage />} />
             <Route path="/ProductDetails/:id" element={<ProductDetails />} />
           </Routes>
         </>
