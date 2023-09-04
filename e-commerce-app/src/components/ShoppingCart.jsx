@@ -119,11 +119,7 @@ const ShoppingCart = ({ cartState, cartDispatch, initiatePayment }) => {
                 </ul>
               ))}
               <h3 className="product_total">Total ${totalPrice.toFixed(2)}</h3>
-              <Link
-                // to="/PaymentHandler"
-                className="pay-now"
-                onClick={checkout}
-              >
+              <Link className="pay-now" onClick={checkout}>
                 Pay now
               </Link>
             </div>
