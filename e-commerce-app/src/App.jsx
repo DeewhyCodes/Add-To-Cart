@@ -19,15 +19,63 @@ const App = () => {
   const { cartState, isLoading, error, products } = state;
   const { isNavmenuVisible, closeNavmenu, isUserMenuVisible, closeUserMenu } =
     useSharedContext();
+  const [productsWithPriceIds, setProductsWithPriceIds] = useState([]);
 
   const location = useLocation();
+
+  const priceIds = [
+    "price_1Nm6QYK2U361dMY0nitxx8Ub",
+
+    "price_1Nm6SBK2U361dMY00iEirgog",
+
+    "price_1Nm6UqK2U361dMY0X57jZR13",
+
+    "price_1Nm6WHK2U361dMY0aVf0ZjPs",
+
+    "price_1Nm6XqK2U361dMY0YJI6x8WN",
+
+    "price_1Nm6YkK2U361dMY0QE46uIwj",
+
+    "price_1Nm6ZZK2U361dMY0ZbIXnfVZ",
+
+    "price_1Nm6aRK2U361dMY0RKlSCOUD",
+
+    "price_1Nm6bTK2U361dMY0oayevtLH",
+
+    "price_1Nm6c8K2U361dMY0ekRQvc1w",
+
+    "price_1Nm6d2K2U361dMY03Do1ef9V",
+
+    "price_1Nm6d2K2U361dMY03Do1ef9V",
+
+    "price_1Nm6fZK2U361dMY01f0J2h2d",
+
+    "price_1NmY4RK2U361dMY0uWa9LSnw",
+
+    "price_1NmY5LK2U361dMY0ALCdxYKD",
+
+    "price_1NmY6MK2U361dMY03geJgT2I",
+
+    "price_1NmY78K2U361dMY0t8l3bdBs",
+
+    "price_1NmY7qK2U361dMY08D4wmH0J",
+
+    "price_1NmY8uK2U361dMY0ut4yjU38",
+
+    "price_1NmY9kK2U361dMY00bxt5rc7",
+  ];
 
   const fetchData = async () => {
     dispatch({ type: "START_FETCH" });
     try {
       const res = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
-      dispatch({ type: "FETCH_SUCCESSFUL", payload: data });
+      const modifiedData = data.map((product, index) => ({
+        ...product,
+        price_id: priceIds[index],
+      }));
+      setProductsWithPriceIds(modifiedData);
+      dispatch({ type: "FETCH_SUCCESSFUL", payload: modifiedData });
     } catch (err) {
       dispatch({ type: "FETCH_ERROR" });
     }
@@ -57,14 +105,17 @@ const App = () => {
       ) : (
         <>
           <Routes>
-            <Route path="/" element={<Home products={products} />} />
+            <Route
+              path="/"
+              element={<Home products={productsWithPriceIds} />}
+            />
             <Route
               path="/Products"
               element={
                 <ProtectedRoute>
                   <Products
                     cartState={cartState}
-                    products={products}
+                    products={productsWithPriceIds}
                     cartDispatch={dispatch}
                   />
                 </ProtectedRoute>
@@ -81,7 +132,7 @@ const App = () => {
               }
             />
             <Route
-              path="/PaymentPage"
+              path="/sucsess"
               element={<PaymentPage cartState={cartState} />}
             />
             <Route path="/ProductDetails/:id" element={<ProductDetails />} />

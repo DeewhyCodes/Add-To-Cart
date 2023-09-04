@@ -2,8 +2,27 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const ShoppingCart = ({ cartState, cartDispatch }) => {
+const ShoppingCart = ({ cartState, cartDispatch, initiatePayment }) => {
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const checkout = async () => {
+    await fetch("http://localhost:4000/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: cartState }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        if (response.url) {
+          window.location.assign(response.url);
+        }
+      });
+  };
+  console.log(cartState);
 
   const increaseQuantity = (productId) => {
     const updatedCart = cartState.map((item) => {
@@ -100,7 +119,11 @@ const ShoppingCart = ({ cartState, cartDispatch }) => {
                 </ul>
               ))}
               <h3 className="product_total">Total ${totalPrice.toFixed(2)}</h3>
-              <Link to="/PaymentPage" className="pay-now">
+              <Link
+                // to="/PaymentHandler"
+                className="pay-now"
+                onClick={checkout}
+              >
                 Pay now
               </Link>
             </div>
