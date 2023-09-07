@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/DeeFromNextDoor/Add-To-Cart/issues"
   },
-  "homepage": "https://github.com/DeeFromNextDoor/Add-To-Cart#readme"
+  "homepage": "https://github.com/DeeFromNextDoor/Add-To-Cart#readme",
+  "devDependencies": {
+    "vite": "^4.4.9"
+  }
 }
