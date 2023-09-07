@@ -55,7 +55,7 @@
     "qs": "^6.11.0",
     "range-parser": "^1.2.1",
     "raw-body": "^2.5.1",
-    "rollup": "^3.28.1",
+    "rollup": "^3.29.0",
     "safe-buffer": "^5.2.1",
     "safer-buffer": "^2.1.2",
     "send": "^0.18.0",
@@ -73,6 +73,7 @@
     "vite": "^4.4.9"
   },
   "scripts": {
+    "dev": "vite",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
