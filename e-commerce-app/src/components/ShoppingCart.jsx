@@ -52,6 +52,24 @@ const ShoppingCart = ({ cartState, cartDispatch }) => {
     calculateTotalPrice();
   }, [cartState]);
 
+  const checkout = async () => {
+    await fetch("http://localhost:4000/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: cartState }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        if (response.url) {
+          window.location.assign(response.url);
+        }
+      });
+  };
+
   return (
     <div className="cart_page">
       <div className="cart_content">
@@ -100,7 +118,7 @@ const ShoppingCart = ({ cartState, cartDispatch }) => {
                 </ul>
               ))}
               <h3 className="product_total">Total ${totalPrice.toFixed(2)}</h3>
-              <Link to="/PaymentPage" className="pay-now">
+              <Link className="pay-now" onClick={checkout}>
                 Pay now
               </Link>
             </div>
