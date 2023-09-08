@@ -3,7 +3,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const stripePublicKey = import.meta.env.VITE_SECRET_KEY;
+const stripePublicKey =
+  "pk_test_51Nm151K2U361dMY0heZyXby9Yk8cLqFP6hPrpNVdh9nSBKxQAFkFDevwwJxVedD5eCDaHARSWu4GypV6IaFcmSeQ00EU6JLbEn";
 
 const ShoppingCart = ({ cartState, cartDispatch }) => {
   const [totalPrice, setTotalPrice] = useState(0);
