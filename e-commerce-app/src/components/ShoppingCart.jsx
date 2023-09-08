@@ -1,6 +1,9 @@
 import React from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+const stripePublicKey = import.meta.env.VITE_SECRET_KEY;
 
 const ShoppingCart = ({ cartState, cartDispatch }) => {
   const [totalPrice, setTotalPrice] = useState(0);
@@ -52,22 +55,24 @@ const ShoppingCart = ({ cartState, cartDispatch }) => {
     calculateTotalPrice();
   }, [cartState]);
 
-  const checkout = async () => {
-    await fetch("http://localhost:4000/checkout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: cartState }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        if (response.url) {
-          window.location.assign(response.url);
-        }
-      });
+  const checkoutOptions = {
+    lineItems: cartState.map((item) => ({
+      price: item.price_id,
+      quantity: item.quantity,
+    })),
+    mode: "payment",
+    successUrl: `${window.location.origin}/Success`,
+    cancelUrl: `${window.location.origin}/Cancel`,
+  };
+
+  const handleCheckout = async () => {
+    const stripe = await loadStripe(stripePublicKey);
+
+    const { error } = await stripe.redirectToCheckout(checkoutOptions);
+
+    if (error) {
+      console.error("Stripe checkout error:", error);
+    }
   };
 
   return (
@@ -118,7 +123,7 @@ const ShoppingCart = ({ cartState, cartDispatch }) => {
                 </ul>
               ))}
               <h3 className="product_total">Total ${totalPrice.toFixed(2)}</h3>
-              <Link className="pay-now" onClick={checkout}>
+              <Link className="pay-now" onClick={handleCheckout}>
                 Pay now
               </Link>
             </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "@stripe/stripe-js";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Navmenu from "./components/Navmenu";
@@ -13,6 +14,8 @@ import { ToastContainer } from "react-toastify";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
 import PaymentPage from "./components/PaymentPage";
+import Success from "./components/Success";
+import Cancel from "./components/Cancel";
 
 const App = () => {
   const { state, dispatch } = useAppContext();
@@ -131,10 +134,8 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/sucsess"
-              element={<PaymentPage cartState={cartState} />}
-            />
+            <Route path="/Success" element={<Success />} />
+            <Route path="/Cancel" element={<Cancel />} />
             <Route path="/ProductDetails/:id" element={<ProductDetails />} />
           </Routes>
         </>
