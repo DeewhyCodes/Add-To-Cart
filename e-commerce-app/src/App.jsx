@@ -13,7 +13,6 @@ import { useSharedContext } from "./context/SharedAppContex";
 import { ToastContainer } from "react-toastify";
 import Home from "./components/Home";
 import Contact from "./components/Contact";
-import PaymentPage from "./components/PaymentPage";
 import Success from "./components/Success";
 import Cancel from "./components/Cancel";
 
