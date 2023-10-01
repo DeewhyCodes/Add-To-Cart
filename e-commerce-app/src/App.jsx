@@ -18,7 +18,7 @@ import Cancel from "./components/Cancel";
 
 const App = () => {
   const { state, dispatch } = useAppContext();
-  const { cartState, isLoading, error, products } = state;
+  const { cartState, isLoading, error } = state;
   const { isNavmenuVisible, closeNavmenu, isUserMenuVisible, closeUserMenu } =
     useSharedContext();
   const [productsWithPriceIds, setProductsWithPriceIds] = useState([]);
